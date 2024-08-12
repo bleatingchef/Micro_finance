@@ -39,7 +39,7 @@ const MobileImage = () => {
           ))}
           <button
             type="submit"
-            className=" bg-slate-950 p-6 pr-20 pl-20 ml-48 mt-10 mb-10  text-center text-white text-2xl rounded-2xl">
+            className=" bg-slate-950 p-6 pr-20 pl-20 ml-48 mt-10 mb-10 text-center text-white text-2xl rounded-2xl hover:outline hover:outline-slate-950 hover:bg-white hover:text-slate-950">
             Check Eligibility
           </button>
         </div>

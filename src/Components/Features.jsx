@@ -13,12 +13,12 @@ import icon1 from '../assets/eligiLine.png';
 const OfferCard = ({ icon, title, description }) => {
     return (
         <div className="flex flex-col items-center bg-slate-950 text-white hover:bg-white hover:text-slate-950 hover:border-4 hover:border-slate-950 rounded-3xl p-8 m-4" style={{ width: '546px', height: '318px' }}>
-            <div className="flex-shrink-0 rounded-full flex items-center justify-center mb-6" style={{ width: '', height: '', backgroundColor: "white" }}>
-                <img src={icon} alt={title} className="h-20 w-20" />
+            <div className="flex-shrink-0 rounded-full flex items-center outline outline-slate-950 justify-center mb-6" style={{ width: '6rem', height: '6rem', backgroundColor: "white" }}>
+                <img src={icon} alt={title} className="h-16 w-16" />
             </div>
             <div className="flex flex-col items-center text-center">
                 <h2 className="text-2xl font-bold mb-2">{title}</h2>
-                <p className='text-md'>{description}</p>
+                <p className='font-semibold'>{description}</p>
             </div>
         </div>
     );

@@ -21,11 +21,11 @@ const Question = () => {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className="flex justify-between items-center p-6 mr-16 border border-gray-300 rounded-lg mb-4 bg-slate-950 text-white"
+              className="flex justify-between items-center p-6 mr-16 border-2 border-slate-950 rounded-lg mb-4 bg-slate-950 text-white hover:bg-white hover:text-slate-950"
             >
-              <span className='text-xl'>{faq}</span>
-              <span className="bg-white rounded-full p-4">
-                <img src={plusIcon} alt="plus icon" className="w-6 h-6" />
+              <span className='text-xl font-semibold'>{faq}</span>
+              <span className="bg-white rounded-full p-4 border-2 border-slate-950">
+                <img src={plusIcon} alt="plus icon" className="w-6 h-6 " />
               </span>
             </div>
           ))}

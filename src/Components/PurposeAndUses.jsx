@@ -41,9 +41,9 @@ const PurposeAndUses = () => {
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex items-center bg-slate-950 text-white rounded-lg pl- p-4"
+              className="flex items-center bg-slate-950 text-white hover:bg-white hover:text-slate-950 hover:outline hover:outline-slate-950 rounded-lg pl- p-4"
             >
-              <div className="bg-white rounded-full p-4">
+              <div className="bg-white rounded-full p-4 outline outline-slate-950">
                 <img src={item.icon} alt={item.label} className="w-10 h-10" />
               </div>
               <span className="ml-8 text-xl text-center">{item.label}</span>

@@ -8,7 +8,7 @@ import business_loan_icon from "../assets/buisness.png"; // Ensure the file name
 const OfferCard = ({ icon, title, description }) => {
   return (
     <div className="flex outline rounded-xl hover:bg-slate-950 hover:text-white text-slate-950 space-x-5 p-8 m-4" style={{ width: '558px', height: '266px',top:'1216px', left:'55px' }}>
-      <div className="mr-4 flex-shrink-0 rounded-full flex items-center justify-center" style={{ width: '6rem', height: '6rem',backgroundColor:" rgb(2 6 23)", }}>
+      <div className="mr-4 flex-shrink-0 rounded-full flex items-center outline outline-white justify-center" style={{ width: '6rem', height: '6rem',backgroundColor:" rgb(2 6 23)", }}>
         <img src={icon} alt={title} className="h-16 w-16" />
       </div>
       <div className=''>
@@ -23,7 +23,7 @@ const WhatWeOffer = () => {
   return (
     <div className="p-10">
       <div className="flex-col ml-20 pb-10 items-center">
-        <h1 className='text-7xl text-slate-950 hover:text-white font-bold'>WHAT WE OFFER?</h1>
+        <h1 className='text-7xl text-slate-950 font-bold'>WHAT WE OFFER?</h1>
         <img src={offer_underline} className='pt-5 pl-10' alt="Underline" />
       </div>
       <div className="flex space-x-16 flex-wrap justify-center mt-10">

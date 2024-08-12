@@ -22,7 +22,7 @@ const Navbar = () => {
     <>
       <div className="flex justify-between items-center p-4 bg-white border-b relative z-10">
         <div className="flex items-center">
-          <img src={logo} alt="Logo" className="h-16 mr-96" />
+         <NavLink to="/"><img src={logo} alt="Logo" className="h-16 mr-96" /></NavLink> 
         </div>
         <div className="flex-grow flex justify-center">
           <ul className="flex space-x-8 ml-60">
