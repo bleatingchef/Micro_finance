@@ -19,7 +19,7 @@ const App = () => {
         <Route path='/refer' element={<Refer/>}/>
         <Route path='/repay' element={<Repayment/>}/>
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
   )
 }
