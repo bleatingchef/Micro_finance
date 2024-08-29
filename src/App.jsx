@@ -7,11 +7,13 @@ import Loans from './pages/Loans'
 import Refer from './pages/Refer'
 import Repayment from './pages/Repayment'
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import ScrollToTop from './Components/ScrollToTop'
 
 
 const App = () => {
   return (
       <Router>
+        <ScrollToTop>
         <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -19,7 +21,8 @@ const App = () => {
         <Route path='/refer' element={<Refer/>}/>
         <Route path='/repay' element={<Repayment/>}/>
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
+      </ScrollToTop>
     </Router>
   )
 }

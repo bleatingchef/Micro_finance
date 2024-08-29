@@ -6,7 +6,8 @@ import circleImage1 from "../assets/circleimg1.png";
 import arcimg from "../assets/arc.png";
 import downarc from "../assets/downarc.png";
 import orangeCircleImg from "../assets/orangecircleimg.png";
-import ss from "../assets/ssimg2.png"
+import ss from "../assets/ssimgnew.png";
+
 const steps = [
   {
     id: 1,
@@ -43,69 +44,37 @@ const ReferHero = () => {
   return (
     <>
       <div>
-        <div className="relative">
-          <img src={referBg} className="w-full h-auto" alt="" />
+        {/* Background Image */}
+        <div className="relative md:mt-0 mt-4">
+          <img src={referBg} className="w-full h-auto" alt="Background" />
         </div>
-        <div className="relative flex-grow pt-20 pb-20">
-          <h1 className="text-7xl text-slate-950 font-bold ml-20">More the referrals, more the rewards!</h1>
-          <img src={referline1} className="ml-20 pt-5 mb-10" alt="underline" />
-          <h3 className="ml-20 text-4xl">Earn Unlimited Points With Your Friends.</h3>
-          <div className="ml-20 mt-10">
-            <p className="text-5xl font-semibold">Refer 1 = Earn ₹75</p>
-            <p className="mt-10 text-5xl font-semibold">Refer 5 = Earn ₹375</p>
-            <p className="mt-10 text-5xl font-semibold">Refer 10 = Earn ₹750</p>
+
+        {/* Main Content */}
+        <div className="relative flex flex-col items-start px-4 md:px-20 py-10">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl text-slate-950 font-bold text-center md:text-left">
+            More the referrals, more the rewards!
+          </h1>
+          <img src={referline1} className="mx-auto md:ml-0 pt-5 mb-10" alt="underline" />
+          <h3 className="text-2xl md:text-4xl lg:text-5xl text-center md:text-left">
+            Earn Unlimited Points With Your Friends.
+          </h3>
+          <div className="text-center md:text-left mt-10">
+            <p className="text-3xl md:text-5xl font-semibold">Refer 1 = Earn ₹75</p>
+            <p className="mt-4 text-3xl md:text-5xl font-semibold">Refer 5 = Earn ₹375</p>
+            <p className="mt-4 text-3xl md:text-5xl font-semibold">Refer 10 = Earn ₹750</p>
           </div>
-          <img src={moneySack} className="absolute right-20 bottom-0 h-auto" alt="Money Sack" />
+          <img src={moneySack} className="absolute hidden md:block right-4 bottom-0 md:right-20 md:bottom-10 h-auto w-32 md:w-auto" alt="Money Sack" />
         </div>
-        <div>
-          <h1 className="text-7xl text-slate-950 font-bold ml-20">How Refer and Earn Works</h1>
-          <img src={referline1} className="ml-20 pt-5 mb-10" alt="underline" />
-          <img src={ss} className='ml-64' style={{width:'1350px'}} alt="" />
 
-          {/* <div className="flex justify-around ml-20 mr-20">
-            {steps.map((step, index) => (
-              <div
-                key={step.id}
-                className="relative flex items-center justify-center"
-                style={{
-                  height: '300px',
-                  width: '300px',
-                  marginTop: index % 2 === 0 ? '0px' : '20px', 
-                }}
-              >
-                <img
-                  src={step.arc}
-                  className="absolute"
-                  style={{ height: '300px', width: '300px' }}
-                  alt={`Arc for Step ${step.id}`}
-                />
-
-                <img
-                  src={step.image}
-                  className={`absolute rounded-full ${step.isActive ? '' : ''}`}
-                  style={{ height: '240px', width: '240px' }}
-                  alt={`Step ${step.id}`}
-                />
-
-                <div
-                  className="absolute flex items-center justify-center rounded-full"
-                  style={{
-                    height: '80px',
-                    width: '80px',
-                    backgroundImage: `url(${step.orangeCircle})`,
-                    backgroundSize: 'cover',
-                    top: '-40px',
-                  }}
-                >
-                  <span className="text-black text-3xl font-bold">{step.id}</span>
-                </div>
-
-                <span className="absolute inset-0 flex items-center justify-center text-white text-xl font-semibold text-center px-2">
-                  {step.text}
-                </span>
-              </div>
-            ))}
-          </div> */}
+        {/* How Refer and Earn Works */}
+        <div className="px-4 md:px-20 py-10">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl text-slate-950 font-bold text-center md:text-left">
+            How Refer and Earn Works
+          </h1>
+          <img src={referline1} className="mx-auto md:ml-0 pt-5 mb-10" alt="underline" />
+          <img src={ss} className='mx-auto mt-10 md:mt-24 w-full md:w-1350' alt="Steps Illustration" />
+          {/* Uncomment below code if you want to include steps */}
+          
         </div>
       </div>
     </>

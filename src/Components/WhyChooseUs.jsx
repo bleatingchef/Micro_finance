@@ -55,8 +55,8 @@ const WhyChooseUs = () => {
   return (
     <div className="p- mt-10">
       <div className="flex-grow">
-        <h1 className="text-7xl text-slate-950 font-bold ml-20 ">WHY CHOOSE US?</h1>
-        <img src={offer_underline} className="ml-20 pt-5 mb-10" alt="underline" />
+        <h1 className="md:text-7xl text-4xl text-slate-950 font-bold md:ml-20 ml-2 ">WHY CHOOSE US?</h1>
+        <img src={offer_underline} className="ml-20 hidden lg:block pt-5 mb-10" alt="underline" />
       </div>
       <div className="flex flex-wrap justify-center mt-5">
         {cardDetails.map((card, index) => (
@@ -73,12 +73,12 @@ const WhyChooseUs = () => {
               backgroundPosition: 'center'
             }} // Adjusted background styles
           >
-            <div className="absolute top-6 left-16 bg-white rounded-full p-3">
-              <img src={card.icon} alt={`icon-${index}`} className="w-16 h-16" />
+            <div className="absolute top-5 md:left-16 md:top-6 left-3 bg-white rounded-full p-3 md:mt-0 mt-10">
+              <img src={card.icon} alt={`icon-${index}`} className="w-16 h-16 " />
             </div>
             <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 text-center px-">
-              <h2 className="text-2xl  pb-5 text-start font-bold">{card.title}</h2>
-              <p className="mt-2 text-start font-semibold">{card.description}</p>
+              <h2 className="md:text-2xl text-lg md:pb-5 pb-4 md:pl-0 pl-10 text-start font-bold">{card.title}</h2>
+              <p className="mt-2 md:text-start text-center md:text-base text-xs font-semibold">{card.description}</p>
             </div>
           </div>
         ))}

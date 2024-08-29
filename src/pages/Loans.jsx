@@ -4,7 +4,8 @@ import Eligibilty from '../Components/Eligibilty'
 import Features from '../Components/Features'
 import MobileImage from '../Components/MobileImage'
 import PurposeAndUses from '../Components/PurposeAndUses'
-import Testimonial from '../Components/Loans_Testimonial'
+// import Testimonial from '../Components/Loans_Testimonial'
+import Testimonial from '../Components/Testimonial'
 import Question from '../Components/Question'
 
 const Loans = () => {

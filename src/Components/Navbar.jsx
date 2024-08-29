@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full flex justify-between items-center p-4 bg-white border-b shadow-md z-10">
+      <div className="fixed top-0 left-0 w-full flex justify-between items-center p-4 bg-white border-b shadow-2xl shadow-black z-10">
         <div className="flex items-center">
           <NavLink to="/">
             <img src={logo} alt="Logo" className="h-16 mr-4" />
