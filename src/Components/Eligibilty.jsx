@@ -1,6 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios'
 
-const Eligibility = () => {
+const Eligibilty = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    mobile: '',
+    pan: '',
+    email: ''
+  });
+
+  const [detailsForm , setDetailsForm] =useState({
+    name:'',
+    mobile:'',
+    amount:''
+  })
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleChanges = (e) => {
+    const { name, value } = e.target;
+    setDetailsForm((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/api/loan/loanApply`, formData, { withCredentials: true });
+      console.log('Loan application submitted successfully:', response.data);
+      // You can add a success message or reset the form here
+      toggleModal(); // Close the modal after submission
+    } catch (error) {
+      console.error('Error submitting loan application:', error);
+      // Handle the error (e.g., show an error message)
+    }
+  };
+  
+  const handleDetails = async (e)=>{
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/api/moreDetails/details`, formData, { withCredentials: true });
+      console.log('Details submitted successfully:', response.data);
+      // You can add a success message or reset the form here
+    } catch (error) {
+      console.error('Error submitting details:', error);
+    }
+  }
+
   return (
     <div className='flex flex-col justify-center items-center px-4 sm:px-10 md:px-20 py-10 sm:py-20'>
       {/* Buttons Section */}
@@ -16,7 +75,10 @@ const Eligibility = () => {
             <button className='bg-white p-3 sm:p-4 text-center text-slate-950 text-lg sm:text-xl rounded-full hover:bg-slate-950 hover:text-white hover:outline hover:outline-slate-950'>
               CHECK ELIGIBILITY
             </button>
-            <button className='bg-yellow-500 p-3 sm:p-4 text-center text-slate-950 text-lg sm:text-xl rounded-full hover:bg-yellow-300 '>
+            <button
+              className='bg-yellow-500 p-3 sm:p-4 text-center text-slate-950 text-lg sm:text-xl rounded-full hover:bg-yellow-300'
+              onClick={toggleModal}
+            >
               APPLY FOR LOAN
             </button>
           </div>
@@ -47,7 +109,7 @@ const Eligibility = () => {
 
         {/* Form Section */}
         <div className='flex flex-col w-full md:w-1/2'>
-          <form action="" className='border-2 sm:border-4 border-slate-950 p-8 sm:p-16 rounded-3xl' method="post">
+          <form action="" className='border-2 sm:border-4 border-slate-950 p-8 sm:p-16 rounded-3xl' onClick={handleDetails}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl text-center font-semibold mb-6">Need More Details?</h2>
             <div className="mb-4">
               <input
@@ -57,6 +119,8 @@ const Eligibility = () => {
                 placeholder="Name*"
                 className="w-full p-2 sm:p-3 mb-2 border rounded-3xl bg-slate-950 text-white placeholder-white"
                 required
+                value = {detailsForm.name}
+                onChange={handleChanges}
               />
             </div>
             <div className="mb-4">
@@ -67,6 +131,8 @@ const Eligibility = () => {
                 placeholder="Mobile Number*"
                 className="w-full p-2 sm:p-3 mb-2 border rounded-3xl bg-slate-950 text-white placeholder-white"
                 required
+                value = {detailsForm.mobile}
+                onChange={handleChanges}
               />
             </div>
             <div className="mb-4">
@@ -77,6 +143,8 @@ const Eligibility = () => {
                 placeholder="Upto* 80,000"
                 className="w-full p-2 sm:p-3 mb-2 border rounded-3xl bg-slate-950 text-white placeholder-white"
                 required
+                value = {detailsForm.amount}
+                onChange={handleChanges}
               />
             </div>
             <div className="mb-6 text-left">
@@ -108,8 +176,77 @@ const Eligibility = () => {
           </form>
         </div>
       </div>
+
+      {/* Modal for Apply for Loan */}
+      {isModalOpen && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+          <div className='bg-white p-8 rounded-lg shadow-lg max-w-lg w-full'>
+            <div className='flex justify-between items-center mb-4'>
+              <h2 className='text-2xl font-semibold'>Apply for Loan</h2>
+              <button className='text-gray-600 hover:text-gray-900' onClick={toggleModal}>
+                &times;
+              </button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Name*"
+                  className="w-full p-2 border rounded-lg"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="Mobile Number*"
+                  className="w-full p-2 border rounded-lg"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="pan"
+                  name="pan"
+                  placeholder="PAN Number*"
+                  className="w-full p-2 border rounded-lg"
+                  value={formData.pan}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email ID*"
+                  className="w-full p-2 border rounded-lg"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <button className='bg-slate-950 text-yellow-500 p-3 w-full rounded-full text-lg font-semibold hover:bg-white hover:text-slate-950 hover:outline hover:outline-slate-950'>
+                  SUBMIT
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Eligibility;
+export default Eligibilty;
