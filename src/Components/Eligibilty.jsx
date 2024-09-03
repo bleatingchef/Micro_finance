@@ -20,6 +20,25 @@ const Eligibilty = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const [isEligibilityModalOpen, setIsEligibilityModalOpen]=useState(false);
+  const [eligibilityformData, setEligibilityformData] = useState({
+    name: '',
+    mobile: '',
+    pan: '',
+    email: ''
+  });
+  const EligibilitytoggleModal=()=>{
+    setIsEligibilityModalOpen(!isEligibilityModalOpen);
+  }
+
+  const ELigibilityhandleChange = (e) => {
+    const { name, value } = e.target;
+    setEligibilityformData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -48,6 +67,17 @@ const Eligibilty = () => {
       // Handle the error (e.g., show an error message)
     }
   };
+const hanldeEligibilitySubmit =async (e)=>{
+  e.preventDefault();
+  try {
+    const response =await axios.post(`http://localhost:5000/api/eligible/eligibility`,eligibilityformData,{withCredentials: true});
+    console.log("eligibility data submitted successfully",response.data);
+    EligibilitytoggleModal();
+  } catch (error) {
+    console.error('Error submitting eligibility check:', error);
+  }
+}
+
   
   const handleDetails = async (e)=>{
     e.preventDefault();
@@ -59,6 +89,7 @@ const Eligibilty = () => {
       console.error('Error submitting details:', error);
     }
   }
+
 
   return (
     <div className='flex flex-col justify-center items-center px-4 sm:px-10 md:px-20 py-10 sm:py-20'>
@@ -72,7 +103,9 @@ const Eligibilty = () => {
           </div>
           {/* Buttons Section */}
           <div className='flex flex-col sm:flex-row mt-4 sm:mt-0 ml-auto space-y-4 sm:space-y-0 sm:space-x-4'>
-            <button className='bg-white p-3 sm:p-4 text-center text-slate-950 text-lg sm:text-xl rounded-full hover:bg-slate-950 hover:text-white hover:outline hover:outline-slate-950'>
+            <button className='bg-white p-3 sm:p-4 text-center text-slate-950 text-lg sm:text-xl rounded-full hover:bg-slate-950 hover:text-white hover:outline hover:outline-slate-950'
+            onClick={EligibilitytoggleModal}
+            >
               CHECK ELIGIBILITY
             </button>
             <button
@@ -233,6 +266,74 @@ const Eligibilty = () => {
                   className="w-full p-2 border rounded-lg"
                   value={formData.email}
                   onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <button className='bg-slate-950 text-yellow-500 p-3 w-full rounded-full text-lg font-semibold hover:bg-white hover:text-slate-950 hover:outline hover:outline-slate-950'>
+                  SUBMIT
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+{/* Modal for Check Eligibility for Loan */}
+{isEligibilityModalOpen && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+          <div className='bg-white p-8 rounded-lg shadow-lg max-w-lg w-full'>
+            <div className='flex justify-between items-center mb-4'>
+              <h2 className='text-2xl font-semibold'>Check Eligibility</h2>
+              <button className='text-gray-600 hover:text-gray-900' onClick={EligibilitytoggleModal}>
+                &times;
+              </button>
+            </div>
+            <form onSubmit={hanldeEligibilitySubmit}>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Name*"
+                  className="w-full p-2 border rounded-lg"
+                  value={eligibilityformData.name}
+                  onChange={ELigibilityhandleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="Mobile Number*"
+                  className="w-full p-2 border rounded-lg"
+                  value={eligibilityformData.mobile}
+                  onChange={ELigibilityhandleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  id="pan"
+                  name="pan"
+                  placeholder="PAN Number*"
+                  className="w-full p-2 border rounded-lg"
+                  value={eligibilityformData.pan}
+                  onChange={ELigibilityhandleChange}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email ID*"
+                  className="w-full p-2 border rounded-lg"
+                  value={eligibilityformData.email}
+                  onChange={ELigibilityhandleChange}
                   required
                 />
               </div>
