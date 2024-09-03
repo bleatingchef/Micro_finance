@@ -52,7 +52,7 @@ const Eligibilty = () => {
   const handleDetails = async (e)=>{
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:5000/api/moreDetails/details`, formData, { withCredentials: true });
+      const response = await axios.post(`http://localhost:5000/api/moreDetails/details`, detailsForm, { withCredentials: true });
       console.log('Details submitted successfully:', response.data);
       // You can add a success message or reset the form here
     } catch (error) {
@@ -109,7 +109,7 @@ const Eligibilty = () => {
 
         {/* Form Section */}
         <div className='flex flex-col w-full md:w-1/2'>
-          <form action="" className='border-2 sm:border-4 border-slate-950 p-8 sm:p-16 rounded-3xl' onClick={handleDetails}>
+          <form action="" className='border-2 sm:border-4 border-slate-950 p-8 sm:p-16 rounded-3xl' onSubmit={handleDetails}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl text-center font-semibold mb-6">Need More Details?</h2>
             <div className="mb-4">
               <input
