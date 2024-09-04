@@ -92,7 +92,7 @@ const Navbar = () => {
           >
             Signup
           </button>
-          <div className="w-10 h-10 bg-pink-300 rounded-full cursor-pointer"></div>
+          {/* <div className="w-10 h-10 bg-pink-300 rounded-full cursor-pointer"></div> */}
         </div>
       </div>
 
@@ -117,6 +117,24 @@ const Navbar = () => {
             <NavLink to='/repay' onClick={toggleMobileMenu}>
               <li className="text-black cursor-pointer text-xl hover:text-gray-700">Repayment</li>
             </NavLink>
+            <button
+              className="w-60 bg-blue-500  text-white py-2 rounded"
+              onClick={() => {
+                toggleMobileMenu();
+                openPopup('login');
+              }}
+            >
+              Login
+            </button>
+            <button
+              className="w-60 bg-green-500 text-white py-2 rounded"
+              onClick={() => {
+                toggleMobileMenu();
+                openPopup('signup');
+              }}
+            >
+              Signup
+            </button>
           </ul>
         </div>
       )}
@@ -127,8 +145,7 @@ const Navbar = () => {
           onClick={closePopup}
         >
           <div
-            className="bg-white p-10 h-96 rounded-lg w-3xl"
-            style={{ height: "450px" }}
+            className="bg-white p-10 rounded-lg w-full max-w-md"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the popup
           >
             {popupType === 'login' && (
@@ -153,7 +170,7 @@ const Navbar = () => {
             )}
             {popupType === 'signup' && (
               <>
-                <h2 className="text-3xl mb-6">Signup</h2>
+                <h2 className="text-3xl  mb-6">Signup</h2>
                 <label htmlFor="username">Username</label>
                 <input
                   type="text"
