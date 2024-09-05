@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import logo from "../assets/logo.png";
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -8,15 +9,20 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState('');
+  const [signupData, setSignupData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+  const [signupError, setSignupError] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
   const navigate = useNavigate();
-
-  const handleMouseEnter = () => {
-    setIsDropdownOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDropdownOpen(false);
-  };
 
   const handleLoansClick = () => {
     navigate('/loans');
@@ -26,13 +32,92 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // const openPopup = (type) => {
+  //   setPopupType(type);
+  //   setIsPopupOpen(true);
+  //   setSuccessMessage(''); // Clear success message when opening the popup
+  //   setSignupError('');
+  //   setLoginError('');
+  //   setSignupData({ username: '', email: '', password: '' }); // Clear signup form fields
+  //   setLoginData({ email: '', password: '' }); // Clear login form fields
+  // };
   const openPopup = (type) => {
     setPopupType(type);
     setIsPopupOpen(true);
+    
+    // Reset form fields when opening the popup
+    setSignupData({
+      username: '',
+      email: '',
+      password: '',
+    });
+    setLoginData({
+      email: '',
+      password: '',
+    });
+    setSignupError('');
+    setLoginError('');
+    setSuccessMessage('');
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
+    setSuccessMessage(''); // Clear success message when closing the popup
+    setSignupError('');
+    setLoginError('');
+  };
+
+  // Handle form changes
+  const handleSignupChange = (e) => {
+    const { name, value } = e.target;
+    setSignupData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission for Signup
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/signup/signUp`,
+        signupData,
+        { withCredentials: true }
+      );
+      console.log('Signup successful', response.data);
+      setSuccessMessage('Signup successful!'); // Show success message
+      setSignupData({ username: '', email: '', password: '' }); // Reset form fields
+    } catch (error) {
+      console.error('Error during signup:', error);
+      setSignupError('Signup failed. Please try again.');
+    }
+  };
+
+  // Handle form submission for Login
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/login`,
+        loginData,
+        { withCredentials: true }
+      );
+      console.log('Login successful', response.data);
+      setSuccessMessage('Login successful!'); // Show success message
+      setLoginData({ email: '', password: '' }); // Reset form fields
+    } catch (error) {
+      console.error('Error during login:', error);
+      setLoginError('Login failed. Please try again.');
+    }
   };
 
   return (
@@ -57,8 +142,8 @@ const Navbar = () => {
             <NavLink to='/'><li className="text-black cursor-pointer text-xl hover:text-gray-700">Home</li></NavLink>
             <li
               className="relative text-black cursor-pointer text-xl hover:text-gray-700"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
             >
               Loans
               {isDropdownOpen && (
@@ -70,7 +155,6 @@ const Navbar = () => {
                   >
                     Flexi Personal Loan
                   </li>
-                  <li className="pl-4 cursor-pointer text-sm list-disc hover:text-gray-700">N/A</li>
                 </ul>
               )}
             </li>
@@ -92,7 +176,6 @@ const Navbar = () => {
           >
             Signup
           </button>
-          {/* <div className="w-10 h-10 bg-pink-300 rounded-full cursor-pointer"></div> */}
         </div>
       </div>
 
@@ -118,7 +201,7 @@ const Navbar = () => {
               <li className="text-black cursor-pointer text-xl hover:text-gray-700">Repayment</li>
             </NavLink>
             <button
-              className="w-60 bg-blue-500  text-white py-2 rounded"
+              className="w-60 bg-blue-500 text-white py-2 rounded"
               onClick={() => {
                 toggleMobileMenu();
                 openPopup('login');
@@ -151,48 +234,81 @@ const Navbar = () => {
             {popupType === 'login' && (
               <>
                 <h2 className="text-3xl mb-10">Login</h2>
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full p-2 mt-5 mb-8 border rounded"
-                  id="email"
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full p-2 mt-5 mb-8 border rounded"
-                  id="password"
-                />
-                <button className="w-full bg-blue-500 text-white py-2 rounded">Login</button>
+                <form onSubmit={handleLoginSubmit}>
+                  <label htmlFor="email">E-mail</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={loginData.email}
+                    onChange={handleLoginChange}
+                    placeholder="Email"
+                    className="w-full p-2 mt-5 mb-8 border rounded"
+                    id="email"
+                    required
+                  />
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleLoginChange}
+                    placeholder="Password"
+                    className="w-full p-2 mt-5 mb-8 border rounded"
+                    id="password"
+                    required
+                  />
+                  {loginError && <p className="text-red-500">{loginError}</p>}
+                  <button className="w-full bg-blue-500 text-white py-2 rounded">Login</button>
+                  {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+                </form>
               </>
             )}
             {popupType === 'signup' && (
               <>
                 <h2 className="text-3xl  mb-6">Signup</h2>
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="w-full p-2 mt-2 mb-4 border rounded"
-                  id="username"
-                />
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full p-2 mt-2 mb-4 border rounded"
-                  id="email"
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full p-2 mt-2 mb-8 border rounded"
-                  id="password"
-                />
-                <button className="w-full bg-blue-500 text-white py-2 rounded">Signup</button>
+                <form onSubmit={handleSignupSubmit}>
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={signupData.username}
+                    onChange={handleSignupChange}
+                    placeholder="Username"
+                    className="w-full p-2 mt-2 mb-4 border rounded"
+                    id="username"
+                    required
+                  />
+                  <label htmlFor="email">E-mail</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={signupData.email}
+                    onChange={handleSignupChange}
+                    placeholder="Email"
+                    className="w-full p-2 mt-2 mb-4 border rounded"
+                    id="email"
+                    required
+                  />
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={signupData.password}
+                    onChange={handleSignupChange}
+                    placeholder="Password"
+                    className="w-full p-2 mt-2 mb-8 border rounded"
+                    id="password"
+                    required
+                  />
+                  {signupError && <p className="text-red-500">{signupError}</p>}
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white py-2 rounded"
+                  >
+                    Signup
+                  </button>
+                  {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+                </form>
               </>
             )}
           </div>
