@@ -63,7 +63,7 @@ const Eligibilty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/loan/loanApply', formData, { withCredentials: true });
+      const response = await axios.post('http://localhost:5002/api/loan/loanApply', formData, { withCredentials: true });
       console.log('Loan application submitted successfully:', response.data);
       setSuccessMessage('Loan application submitted successfully!');
       setFormData({ name: '', mobile: '', pan: '', email: '' });
@@ -77,7 +77,7 @@ const Eligibilty = () => {
   const hanldeEligibilitySubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/eligible/eligibility', eligibilityformData, { withCredentials: true });
+      const response = await axios.post('http://localhost:5002/api/eligible/eligibility', eligibilityformData, { withCredentials: true });
       console.log('Eligibility data submitted successfully:', response.data);
       setSuccessMessage('Eligibility data submitted successfully!');
       setEligibilityformData({ name: '', mobile: '', pan: '', email: '' });
@@ -90,7 +90,7 @@ const Eligibilty = () => {
   const handleDetails = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/moreDetails/details', detailsForm, { withCredentials: true });
+      const response = await axios.post('http://localhost:5002/api/moreDetails/details', detailsForm, { withCredentials: true });
       console.log('Details submitted successfully:', response.data);
       setSuccessMessage('Details submitted successfully!');
       setDetailsForm({ name: '', mobile: '', amount: '' });

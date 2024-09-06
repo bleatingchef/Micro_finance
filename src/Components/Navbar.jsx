@@ -89,7 +89,7 @@ const Navbar = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/signup/signUp`,
+        `http://localhost:5002/api/signup/signUp`,
         signupData,
         { withCredentials: true }
       );
@@ -107,7 +107,7 @@ const Navbar = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/login`,
+        `http://localhost:5002/api/login`,
         loginData,
         { withCredentials: true }
       );
